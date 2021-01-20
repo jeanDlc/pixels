@@ -33,7 +33,7 @@ const Imagen = ({imagen}) => {
                     <img 
                         src={largeImageURL}
                         alt="Img not found"
-                        className="mw-100 mb-2"    
+                        className="mw-100 mb-2 mh-100"    
                     />
                 </ContenedorImagen>
                 <Parrafo>
