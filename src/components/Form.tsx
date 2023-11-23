@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Typography, TextField } from "@mui/material";
-
-import Error from "./Error";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 
 import type { FormEvent } from "react";
 
@@ -30,9 +30,9 @@ const Form = ({
   };
 
   return (
-    <div className="p-3  text-center">
+    <Box sx={{ textAlign: "center", p: 3 }}>
       <Typography variant="h1" component={"h1"}>
-        Pixels <i className="fas fa-image"></i>
+        Pixels
       </Typography>
       <small>Your favorite image gallery</small>
       <Box
@@ -42,6 +42,7 @@ const Form = ({
       >
         <div>
           <TextField
+            error={hasError}
             fullWidth
             type="text"
             placeholder="Ex. Grumpy cat"
@@ -50,9 +51,20 @@ const Form = ({
             onChange={(e) => setCategory(e.target.value)}
           />
         </div>
-        {hasError ? <Error message="Type something!" /> : null}
+        <Snackbar
+          open={hasError}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert
+            variant="filled"
+            severity="error"
+            onClose={() => setHasError(false)}
+          >
+            You must input a valid text to search!
+          </Alert>
+        </Snackbar>
       </Box>
-    </div>
+    </Box>
   );
 };
 
