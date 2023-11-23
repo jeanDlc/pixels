@@ -7,5 +7,12 @@ export const theme = responsiveFontSizes(
         main: "rgb(99, 102, 241)",
       },
     },
+    components: {
+      MuiButton: {
+        defaultProps: {
+          variant: "contained",
+        },
+      },
+    },
   })
 );

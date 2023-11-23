@@ -1,24 +1,7 @@
-import styled from "@emotion/styled";
-/**styled components*********************************************************** */
-const Div = styled.div`
-  display: grid;
-  max-width: 600px;
-  margin: 1rem auto;
-  gap: 1rem;
-  @media (min-width: 920px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-`;
-const Boton = styled.button`
-  transition: all 0.3s ease-out;
-  font-size: 1.5rem;
-  border-color: #333;
-  &:hover {
-    transform: scale(1.05);
-    transform: rotate(3deg);
-  }
-`;
-/**component*********************************************************** */
+import { Button, Box, Grid } from "@mui/material";
+import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+
 const Pagination = ({
   setPagination,
   pagination,
@@ -35,24 +18,30 @@ const Pagination = ({
   };
 
   return (
-    <Div>
-      <Boton
-        className="btn btn-light mr-3 anterior"
-        disabled={pagination <= 1 ? true : false}
-        id="prev"
-        onClick={() => onChangePage({ next: true })}
-      >
-        <i className="fas fa-arrow-circle-left"></i> ..Previous page
-      </Boton>
+    <Box sx={{ maxWidth: 600, m: "1rem auto" }}>
+      <Grid container spacing={1}>
+        <Grid item xs={12} md={6}>
+          <Button
+            fullWidth
+            disabled={pagination <= 1 ? true : false}
+            onClick={() => onChangePage({ next: true })}
+            startIcon={<KeyboardDoubleArrowLeftIcon />}
+          >
+            ..Previous page
+          </Button>
+        </Grid>
 
-      <Boton
-        className="btn btn-light siguiente"
-        id="btnSiguiente"
-        onClick={() => onChangePage({ next: false })}
-      >
-        Next Page.. <i className="fas fa-arrow-circle-right"></i>
-      </Boton>
-    </Div>
+        <Grid item xs={12} md={6}>
+          <Button
+            fullWidth
+            onClick={() => onChangePage({ next: true })}
+            endIcon={<KeyboardDoubleArrowRightIcon />}
+          >
+            Next Page..
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 };
 
