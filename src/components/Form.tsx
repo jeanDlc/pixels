@@ -1,17 +1,10 @@
-import { FormEvent, useState } from "react";
-import styled from "@emotion/styled";
-import Error from "./Error";
-/**styled components*************************************************** */
-const MiForm = styled.form`
-  max-width: 500px;
-  width: 100%;
-  margin: 1rem auto;
-`;
-const Input = styled.input`
-  font-size: 1.3rem;
-`;
+import { useState } from "react";
+import { Box, Typography, TextField } from "@mui/material";
 
-/**componentes********************************************************* */
+import Error from "./Error";
+
+import type { FormEvent } from "react";
+
 const Form = ({
   setSearch,
   setPagination,
@@ -37,26 +30,28 @@ const Form = ({
   };
 
   return (
-    <div className="p-3 bg-primary text-center">
-      <h1 className="text-light mb-0 display-3">
+    <div className="p-3  text-center">
+      <Typography variant="h1" component={"h1"}>
         Pixels <i className="fas fa-image"></i>
-      </h1>
-      <small className="text-light">Your favorite image gallery</small>
-      <MiForm onSubmit={handleSubmit}>
-        <div className="form-group">
-          <Input
+      </Typography>
+      <small>Your favorite image gallery</small>
+      <Box
+        component={"form"}
+        sx={{ maxWidth: 500, width: "100%", m: "1rem auto" }}
+        onSubmit={handleSubmit}
+      >
+        <div>
+          <TextField
+            fullWidth
             type="text"
-            placeholder="¿Qué buscas?"
+            placeholder="Ex. Grumpy cat"
+            label="Search"
             value={category}
-            className="form-control"
             onChange={(e) => setCategory(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-dark btn-block border">
-          Search
-        </button>
         {hasError ? <Error message="Type something!" /> : null}
-      </MiForm>
+      </Box>
     </div>
   );
 };
