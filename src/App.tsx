@@ -1,21 +1,21 @@
 import { useState, useEffect } from "react";
 import Form from "./components/Form";
 import ImageList from "./components/ImageList";
+import { Api } from "./services";
+
+import type { iImage } from "./types";
 
 function App() {
   const [search, setSearch] = useState("general");
 
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<iImage[]>([]);
   const [pagination, setPagination] = useState(1);
 
   useEffect(() => {
     if (search === "") return;
     const fetchImages = async () => {
-      const apiKey = "18641959-67103dd90e4e1d7a10ed64389";
-      const url = `https://pixabay.com/api/?q=${search}&key=${apiKey}&page=${pagination}`;
-      const result = await fetch(url);
-      const images = await result.json();
-      setList(images.hits);
+      const result = await Api.performRequest({ search, pagination });
+      setList(result);
     };
     fetchImages();
   }, [search, pagination]);
