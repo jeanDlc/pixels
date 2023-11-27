@@ -24,7 +24,7 @@ const Pagination = ({
           <Button
             fullWidth
             disabled={pagination <= 1 ? true : false}
-            onClick={() => onChangePage({ next: true })}
+            onClick={() => onChangePage({ next: false })}
             startIcon={<KeyboardDoubleArrowLeftIcon />}
           >
             ..Previous page

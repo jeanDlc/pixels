@@ -1,4 +1,4 @@
-import Pagination from "./Pagination";
+import Pagination from "../Pagination";
 
 import { Box, Typography, Container } from "@mui/material";
 import MuiImageList from "@mui/material/ImageList";
@@ -8,9 +8,9 @@ import IconButton from "@mui/material/IconButton";
 import RedirectIcon from "@mui/icons-material/OpenInNew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-import { useAppMediaQuery } from "../hooks/useAppMediaQuery";
+import { useAppMediaQuery } from "../../hooks/useAppMediaQuery";
 
-import type { iImage } from "../types";
+import type { iImage } from "../../types";
 
 const ImageList = ({
   imageList,
@@ -18,7 +18,7 @@ const ImageList = ({
   setPagination,
   pagination,
 }: {
-  imageList: iImage[];
+  imageList?: iImage[];
   search: string;
   setPagination: (p: number) => void;
   pagination: number;
@@ -26,7 +26,7 @@ const ImageList = ({
   const isMobile = useAppMediaQuery((theme) => theme.breakpoints.down("sm"));
   const isMedium = useAppMediaQuery((theme) => theme.breakpoints.down("md"));
 
-  if (!imageList.length) return null;
+  if (!imageList?.length) return null;
 
   return (
     <>

@@ -13,6 +13,11 @@ export const theme = responsiveFontSizes(
           variant: "contained",
         },
       },
+      MuiContainer: {
+        defaultProps: {
+          maxWidth: "xl",
+        },
+      },
     },
   })
 );
