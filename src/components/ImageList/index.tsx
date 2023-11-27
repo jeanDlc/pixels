@@ -35,21 +35,22 @@ const ImageList = ({
           direction={"row"}
           justifyContent={"space-between"}
           alignItems={"center"}
+          mt={3}
+          mb={2}
         >
-          <Typography sx={{ flex: "1" }}>
-            Page N° {pagination}. Results for
-            <span> "{search}"</span>
+          <Typography variant="h4" sx={{ flex: "1" }}>
+            Free pictures of {search}
           </Typography>
           <Pagination setPagination={setPagination} pagination={pagination} />
         </Stack>
         <MuiImageList cols={isMobile ? 1 : isMedium ? 2 : 3}>
-          {imageList.map((image) => (
+          {imageList.map((image, i) => (
             <MuiImageListItem key={image.id}>
               <img
                 srcSet={`${image.largeImageURL}?w=248&fit=crop&auto=format&dpr=2 2x`}
                 src={`${image.largeImageURL}?w=248&fit=crop&auto=format`}
                 alt={`Picture from ${image.user}`}
-                loading="lazy"
+                loading={i < 3 ? "eager" : "lazy"}
               />
               <ImageListItemBar
                 title={`@${image.user}`}

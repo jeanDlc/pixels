@@ -1,13 +1,13 @@
 import { useState } from "react";
 import useSWR from "swr";
 import { Alert, Container } from "@mui/material";
-import Form from "./components/Form";
 import ImageList from "./components/ImageList";
 import { Api } from "./services";
 import ImageListSkeleton from "./components/ImageList/Skeleton";
 import { fetcher } from "./utils/fetcher";
 
 import type { iImage } from "./types";
+import Header from "./components/Header";
 
 function App() {
   const [search, setSearch] = useState("general");
@@ -25,7 +25,7 @@ function App() {
 
   return (
     <>
-      <Form setSearch={setSearch} setPagination={setPagination} />
+      <Header setSearch={setSearch} setPagination={setPagination} />
       {isLoading ? (
         <ImageListSkeleton />
       ) : hasError ? (
