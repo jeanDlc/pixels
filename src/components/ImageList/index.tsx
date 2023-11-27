@@ -1,6 +1,6 @@
 import Pagination from "../Pagination";
 
-import { Box, Typography, Container } from "@mui/material";
+import { Box, Typography, Container, Stack } from "@mui/material";
 import MuiImageList from "@mui/material/ImageList";
 import MuiImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -31,11 +31,17 @@ const ImageList = ({
   return (
     <>
       <Container maxWidth="xl">
-        <Typography className="text-center text-primary mb-3">
-          Page N° {pagination}. Results for
-          <span className="text-uppercase"> "{search}"</span>
-        </Typography>
-        <Pagination setPagination={setPagination} pagination={pagination} />
+        <Stack
+          direction={"row"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
+          <Typography sx={{ flex: "1" }}>
+            Page N° {pagination}. Results for
+            <span> "{search}"</span>
+          </Typography>
+          <Pagination setPagination={setPagination} pagination={pagination} />
+        </Stack>
         <MuiImageList cols={isMobile ? 1 : isMedium ? 2 : 3}>
           {imageList.map((image) => (
             <MuiImageListItem key={image.id}>
@@ -72,13 +78,17 @@ const ImageList = ({
             </MuiImageListItem>
           ))}
         </MuiImageList>
-        {/* <div className="row">
-          {imageList.map((image) => (
-            <Image key={image.id} image={image} />
-          ))}
-        </div> */}
       </Container>
-      <Pagination setPagination={setPagination} pagination={pagination} />
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          my: 3,
+        }}
+      >
+        <Pagination setPagination={setPagination} pagination={pagination} />
+      </Box>
     </>
   );
 };

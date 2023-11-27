@@ -1,6 +1,5 @@
-import { Button, Box, Grid } from "@mui/material";
-import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
-import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
+import MuiPagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 const Pagination = ({
   setPagination,
@@ -9,39 +8,17 @@ const Pagination = ({
   setPagination: (p: number) => void;
   pagination: number;
 }) => {
-  const onChangePage = ({ next }: { next: boolean }) => {
-    if (next) {
-      setPagination(pagination + 1);
-    } else {
-      setPagination(pagination - 1);
-    }
-  };
-
   return (
-    <Box sx={{ maxWidth: 600, m: "1rem auto" }}>
-      <Grid container spacing={1}>
-        <Grid item xs={12} md={6}>
-          <Button
-            fullWidth
-            disabled={pagination <= 1 ? true : false}
-            onClick={() => onChangePage({ next: false })}
-            startIcon={<KeyboardDoubleArrowLeftIcon />}
-          >
-            ..Previous page
-          </Button>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Button
-            fullWidth
-            onClick={() => onChangePage({ next: true })}
-            endIcon={<KeyboardDoubleArrowRightIcon />}
-          >
-            Next Page..
-          </Button>
-        </Grid>
-      </Grid>
-    </Box>
+    <Stack spacing={2}>
+      <MuiPagination
+        size="large"
+        count={10}
+        page={pagination}
+        color="primary"
+        onChange={(_, value) => setPagination(value)}
+        shape="rounded"
+      />
+    </Stack>
   );
 };
 
