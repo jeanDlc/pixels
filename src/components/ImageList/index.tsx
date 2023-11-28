@@ -1,5 +1,4 @@
-import Pagination from "../Pagination";
-
+import { useParams } from "react-router-dom";
 import { Box, Typography, Container, Stack } from "@mui/material";
 import MuiImageList from "@mui/material/ImageList";
 import MuiImageListItem from "@mui/material/ImageListItem";
@@ -8,23 +7,16 @@ import IconButton from "@mui/material/IconButton";
 import RedirectIcon from "@mui/icons-material/OpenInNew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
+import Pagination from "../Pagination";
 import { useAppMediaQuery } from "../../hooks/useAppMediaQuery";
 
 import type { iImage } from "../../types";
 
-const ImageList = ({
-  imageList,
-  search,
-  setPagination,
-  pagination,
-}: {
-  imageList?: iImage[];
-  search: string;
-  setPagination: (p: number) => void;
-  pagination: number;
-}) => {
+const ImageList = ({ imageList }: { imageList?: iImage[] }) => {
   const isMobile = useAppMediaQuery((theme) => theme.breakpoints.down("sm"));
   const isMedium = useAppMediaQuery((theme) => theme.breakpoints.down("md"));
+
+  const { search } = useParams();
 
   if (!imageList?.length) return null;
 
@@ -41,7 +33,7 @@ const ImageList = ({
           <Typography variant="h4" sx={{ flex: "1" }}>
             Free pictures of {search}
           </Typography>
-          <Pagination setPagination={setPagination} pagination={pagination} />
+          <Pagination />
         </Stack>
         <MuiImageList cols={isMobile ? 1 : isMedium ? 2 : 3}>
           {imageList.map((image, i) => (
@@ -88,7 +80,7 @@ const ImageList = ({
           my: 3,
         }}
       >
-        <Pagination setPagination={setPagination} pagination={pagination} />
+        <Pagination />
       </Box>
     </>
   );

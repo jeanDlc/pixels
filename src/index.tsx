@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 
-import App from "./App";
+import Search from "./routes/Search";
 import AppThemeProvider from "./components/ThemeProvider";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./routes/Home";
@@ -14,8 +14,8 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/search/:q",
-    element: <App />,
+    path: "/search/:search",
+    element: <Search />,
   },
 ]);
 

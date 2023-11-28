@@ -92,7 +92,8 @@ const Home = () => {
       alert("error");
       return;
     }
-    navigate({ pathname: `/search/${searchQuery}` });
+    const params = new URLSearchParams({ page: "1" });
+    navigate({ pathname: `/search/${searchQuery}`, search: params.toString() });
   };
 
   return (
@@ -131,12 +132,7 @@ const Home = () => {
           </Alert>
         </Container>
       ) : (
-        <ImageList
-          imageList={data?.hits}
-          search="Popular"
-          pagination={1}
-          setPagination={() => {}}
-        />
+        <ImageList imageList={data?.hits} />
       )}
     </div>
   );

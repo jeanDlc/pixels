@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Box } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
+
+import type { FormEvent } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -47,30 +50,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-import type { FormEvent } from "react";
-
-const Form = ({
-  setSearch,
-  setPagination,
-}: {
-  setSearch: (s: string) => void;
-  setPagination: (p: number) => void;
-}) => {
-  const [category, setCategory] = useState("");
+const Form = () => {
+  const { search } = useParams();
+  const navigate = useNavigate();
+  const [searchInput, setSearchInput] = useState(search ?? "");
   const [hasError, setHasError] = useState(false);
-  //submit
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (category.trim() === "") {
+    if (searchInput.trim() === "") {
       setHasError(true);
       return;
     }
-    setPagination(1);
+
     setHasError(false);
 
-    setSearch(category.trim());
-
-    setCategory("");
+    navigate(`/search/${searchInput.trim()}?page=1`);
   };
 
   return (
@@ -81,9 +76,10 @@ const Form = ({
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
+            value={searchInput}
             placeholder="Search..."
             inputProps={{ "aria-label": "search" }}
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={(e) => setSearchInput(e.target.value)}
           />
         </Search>
         <Snackbar

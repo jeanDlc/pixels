@@ -1,21 +1,25 @@
 import MuiPagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useSearchParams } from "react-router-dom";
 
-const Pagination = ({
-  setPagination,
-  pagination,
-}: {
-  setPagination: (p: number) => void;
-  pagination: number;
-}) => {
+const Pagination = () => {
+  const [params, setParams] = useSearchParams();
+
+  const page = Number(params.get("page") ?? 1);
+
   return (
     <Stack spacing={2}>
       <MuiPagination
         size="large"
         count={10}
-        page={pagination}
+        page={page}
         color="primary"
-        onChange={(_, value) => setPagination(value)}
+        onChange={(_, value) =>
+          setParams((p) => {
+            p.set("page", value.toString());
+            return p;
+          })
+        }
         shape="rounded"
       />
     </Stack>

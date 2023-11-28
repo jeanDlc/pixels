@@ -5,19 +5,13 @@ import Container from "@mui/material/Container";
 import Form from "./Form";
 import Title from "./Title";
 
-const Header = ({
-  setPagination,
-  setSearch,
-}: {
-  setSearch: (s: string) => void;
-  setPagination: (p: number) => void;
-}) => {
+const Header = () => {
   return (
     <AppBar position="sticky">
       <Container>
         <Toolbar>
           <Title />
-          <Form setPagination={setPagination} setSearch={setSearch} />
+          <Form />
         </Toolbar>
       </Container>
     </AppBar>
