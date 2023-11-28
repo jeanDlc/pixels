@@ -1,18 +1,23 @@
 import { FormEvent, useState } from "react";
-import useSWR from "swr";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import { Container, Typography, Box, InputBase, Alert } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  InputBase,
+  Alert,
+  Tabs,
+  Tab,
+} from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
 import bgImage from "../../public/background.jpg";
 import Title from "../components/Title";
-import { fetcher } from "../utils/fetcher";
-import { Api } from "../services";
+
 import ImageListSkeleton from "../components/ImageList/Skeleton";
 import ImageList from "../components/ImageList";
-
-import type { iImage } from "../types";
+import { useImages } from "../hooks/useImages";
 
 const StyledHero = styled(Box)(() => ({
   backgroundImage: `url(${bgImage})`,
@@ -69,18 +74,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const Home = () => {
-  const {
-    data,
-    error: hasError,
-    isLoading,
-  } = useSWR<{
-    hits: iImage[];
-    total: number;
-    totalHits: number;
-  }>(Api.createRequestUrl({ search: "popular", pagination: 1 }), fetcher);
+const tabs = ["General", "Popular", "Funny"] as const;
 
+const Home = () => {
   const [search, setSearch] = useState("");
+
+  const [currentTab, setCurrentTab] =
+    useState<(typeof tabs)[number]>("General");
+
+  const { data, hasError, isLoading } = useImages({
+    search: currentTab,
+    page: 1,
+  });
 
   const navigate = useNavigate();
 
@@ -103,7 +108,7 @@ const Home = () => {
           <Title />
           <Container maxWidth="md">
             <Box mt={10}>
-              <Typography variant="h4" mb={2}>
+              <Typography variant="h4" component="h2" mb={2}>
                 The best free stock photos, royalty-free images and videos
                 shared by creators.
               </Typography>
@@ -123,6 +128,22 @@ const Home = () => {
           </Container>
         </Container>
       </StyledHero>
+      <Container>
+        <Box sx={{ display: "flex", justifyContent: "center", mt: 3, mb: 5 }}>
+          <Tabs
+            value={currentTab}
+            onChange={(_, value) => setCurrentTab(value)}
+            aria-label="Different options for preview"
+          >
+            {tabs.map((tab) => (
+              <Tab value={tab} label={tab.toLocaleUpperCase()} />
+            ))}
+          </Tabs>
+        </Box>
+        <Typography variant="h5" component="h3" sx={{ mb: 2 }}>
+          Free stock images
+        </Typography>
+      </Container>
       {isLoading ? (
         <ImageListSkeleton />
       ) : hasError ? (
@@ -132,7 +153,9 @@ const Home = () => {
           </Alert>
         </Container>
       ) : (
-        <ImageList imageList={data?.hits} />
+        <>
+          <ImageList imageList={data?.hits} />
+        </>
       )}
     </div>
   );
