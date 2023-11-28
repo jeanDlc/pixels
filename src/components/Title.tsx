@@ -12,6 +12,7 @@ const Title = () => {
       sx={{
         flexGrow: 1,
         padding: 1,
+        pl: 0,
       }}
     >
       <ButtonBase
