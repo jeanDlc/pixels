@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 
-import bgImage from "../../public/background.jpg";
+import bgImage from "../../assets/background.jpg";
 import Title from "../components/Title";
 
 import ImageListSkeleton from "../components/ImageList/Skeleton";
