@@ -1,10 +1,11 @@
-import { Alert, Container } from "@mui/material";
+import { Alert, Container, Typography, Box, Stack } from "@mui/material";
 import { useParams, useSearchParams } from "react-router-dom";
 
 import ImageList from "../components/ImageList";
 import ImageListSkeleton from "../components/ImageList/Skeleton";
 import Header from "../components/Header";
 import { useImages } from "../hooks/useImages";
+import Pagination from "../components/Pagination";
 
 function Search() {
   const [searchParams] = useSearchParams();
@@ -22,17 +23,41 @@ function Search() {
   return (
     <>
       <Header />
-      {isLoading ? (
-        <ImageListSkeleton />
-      ) : hasError ? (
-        <Container>
-          <Alert variant="filled" severity="error">
-            Error while searching images. Please try again later...
-          </Alert>
-        </Container>
-      ) : (
-        <ImageList imageList={data?.hits} />
-      )}
+      <Box component="main" mt={8}>
+        {isLoading ? (
+          <ImageListSkeleton />
+        ) : hasError ? (
+          <Container>
+            <Alert variant="filled" severity="error">
+              Error while searching images. Please try again later...
+            </Alert>
+          </Container>
+        ) : (
+          <>
+            <Container>
+              <Stack
+                direction={{ xs: "column", md: "row" }}
+                justifyContent="space-between"
+                alignItems="center"
+                spacing={2}
+                mb={5}
+              >
+                <Typography variant="h4" component="h2">
+                  Free images of{" "}
+                  <Box component="span" sx={{ textTransform: "capitalize" }}>
+                    {search}
+                  </Box>
+                </Typography>
+                <Pagination />
+              </Stack>
+            </Container>
+            <ImageList imageList={data?.hits} />
+            <Stack justifyContent="center" alignItems="center" mb={5}>
+              <Pagination />
+            </Stack>
+          </>
+        )}
+      </Box>
     </>
   );
 }

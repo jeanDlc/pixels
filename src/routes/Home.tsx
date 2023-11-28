@@ -102,7 +102,7 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <Box>
       <StyledHero component={"section"}>
         <Container>
           <Title />
@@ -128,36 +128,38 @@ const Home = () => {
           </Container>
         </Container>
       </StyledHero>
-      <Container>
-        <Box sx={{ display: "flex", justifyContent: "center", mt: 3, mb: 5 }}>
-          <Tabs
-            value={currentTab}
-            onChange={(_, value) => setCurrentTab(value)}
-            aria-label="Different options for preview"
-          >
-            {tabs.map((tab) => (
-              <Tab value={tab} label={tab.toLocaleUpperCase()} />
-            ))}
-          </Tabs>
-        </Box>
-        <Typography variant="h5" component="h3" sx={{ mb: 2 }}>
-          Free stock images
-        </Typography>
-      </Container>
-      {isLoading ? (
-        <ImageListSkeleton />
-      ) : hasError ? (
-        <Container sx={{ mt: 1 }}>
-          <Alert variant="filled" severity="error">
-            Error while searching images. Please try again later...
-          </Alert>
+      <Box component="main">
+        <Container>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 3, mb: 5 }}>
+            <Tabs
+              value={currentTab}
+              onChange={(_, value) => setCurrentTab(value)}
+              aria-label="Different options for preview"
+            >
+              {tabs.map((tab) => (
+                <Tab value={tab} label={tab.toLocaleUpperCase()} />
+              ))}
+            </Tabs>
+          </Box>
+          <Typography variant="h5" component="h3" sx={{ mb: 2 }}>
+            Free stock images
+          </Typography>
         </Container>
-      ) : (
-        <>
-          <ImageList imageList={data?.hits} />
-        </>
-      )}
-    </div>
+        {isLoading ? (
+          <ImageListSkeleton />
+        ) : hasError ? (
+          <Container sx={{ mt: 1 }}>
+            <Alert variant="filled" severity="error">
+              Error while searching images. Please try again later...
+            </Alert>
+          </Container>
+        ) : (
+          <>
+            <ImageList imageList={data?.hits} />
+          </>
+        )}
+      </Box>
+    </Box>
   );
 };
 
