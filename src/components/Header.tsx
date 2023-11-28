@@ -1,11 +1,9 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import Box from "@mui/material/Box";
 
 import Form from "./Form";
-import { Logo } from "./Logo";
+import Title from "./Title";
 
 const Header = ({
   setPagination,
@@ -18,20 +16,7 @@ const Header = ({
     <AppBar position="sticky">
       <Container>
         <Toolbar>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 2,
-              flexGrow: 1,
-              padding: 1,
-            }}
-          >
-            <Logo />
-            <Typography variant="h6" component="h1">
-              Pixels
-            </Typography>
-          </Box>
+          <Title />
           <Form setPagination={setPagination} setSearch={setSearch} />
         </Toolbar>
       </Container>

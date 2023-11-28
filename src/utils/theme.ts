@@ -1,5 +1,5 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
+
 export const theme = responsiveFontSizes(
   createTheme({
     palette: {
