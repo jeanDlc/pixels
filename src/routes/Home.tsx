@@ -117,7 +117,7 @@ const Home = () => {
             <GithubLink />
           </Stack>
           <Container maxWidth="md">
-            <Box mt={10}>
+            <Box sx={{ mt: { xs: 5, md: 10 } }}>
               <Typography variant="h4" component="h2" mb={2}>
                 The best free stock photos, royalty-free images and videos
                 shared by creators.

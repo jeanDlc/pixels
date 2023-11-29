@@ -23,7 +23,7 @@ function Search() {
   return (
     <>
       <Header />
-      <Box component="main" mt={8}>
+      <Box component="main" sx={{ mt: { xs: 4, md: 8 } }}>
         {isLoading ? (
           <ImageListSkeleton />
         ) : hasError ? (
