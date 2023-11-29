@@ -3,7 +3,7 @@ import Stack from "@mui/material/Stack";
 import { useSearchParams } from "react-router-dom";
 import { useAppMediaQuery } from "../hooks/useAppMediaQuery";
 
-const Pagination = () => {
+const Pagination = ({ pagesCount }: { pagesCount: number }) => {
   const [params, setParams] = useSearchParams();
 
   const isMobile = useAppMediaQuery(({ breakpoints }) =>
@@ -16,7 +16,7 @@ const Pagination = () => {
     <Stack spacing={2}>
       <MuiPagination
         size={isMobile ? "medium" : "large"}
-        count={10}
+        count={pagesCount}
         page={page}
         color="primary"
         onChange={(_, value) =>

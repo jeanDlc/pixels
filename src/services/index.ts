@@ -1,40 +1,15 @@
-import type { iImage } from "../types";
-
 export class Api {
   private static BASE_URL = import.meta.env.VITE_PIXABAY_BASE_URL;
+  static IMAGES_PER_PAGE = 20;
 
-  //TODO delete this method
-  static async performRequest({
-    search,
-    pagination,
-  }: {
-    search: string;
-    pagination: number;
-  }) {
-    const url = new URL(this.BASE_URL);
-    url.searchParams.append("q", search);
-    url.searchParams.append("key", import.meta.env.VITE_PIXABAY_KEY);
-    url.searchParams.append("page", pagination.toString());
-
-    const res = await fetch(url);
-
-    const data = await res.json();
-
-    return data.hits as iImage[];
-  }
-  static createRequestUrl({
-    search,
-    pagination,
-  }: {
-    search: string;
-    pagination: number;
-  }) {
+  static createRequestUrl({ search, page }: { search: string; page: number }) {
     const base = new URL(this.BASE_URL);
 
     const params = new URLSearchParams({
       q: search,
       key: import.meta.env.VITE_PIXABAY_KEY,
-      page: pagination.toString(),
+      page: page.toString(),
+      per_page: this.IMAGES_PER_PAGE.toString(),
     });
 
     return `${base}?${params}`;

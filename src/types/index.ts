@@ -6,3 +6,9 @@ export interface iImage {
   views: number;
   largeImageURL: string;
 }
+
+export interface iImageApiResponse {
+  hits: iImage[];
+  total: number;
+  totalHits: number;
+}

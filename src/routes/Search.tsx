@@ -48,12 +48,12 @@ function Search() {
                     {search}
                   </Box>
                 </Typography>
-                <Pagination />
+                <Pagination pagesCount={data?.pagesCount ?? 0} />
               </Stack>
             </Container>
             <ImageList imageList={data?.hits} />
             <Stack justifyContent="center" alignItems="center" mb={5}>
-              <Pagination />
+              <Pagination pagesCount={data?.pagesCount ?? 0} />
             </Stack>
           </>
         )}

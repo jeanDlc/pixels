@@ -3,7 +3,21 @@ import useSWR from "swr";
 import { Api } from "../services";
 import { fetcher } from "../utils/fetcher";
 
-import type { iImage } from "../types";
+import type { iImageApiResponse } from "../types";
+
+const getPagesCount = ({
+  total,
+  resultsPerPage,
+}: {
+  total: number;
+  resultsPerPage: number;
+}) => {
+  return Math.ceil(total / resultsPerPage);
+};
+
+interface iPopulatedImageResponse extends iImageApiResponse {
+  pagesCount: number;
+}
 
 export const useImages = ({
   search,
@@ -13,14 +27,24 @@ export const useImages = ({
   page?: number;
 }) => {
   const {
-    data,
+    data: response,
     error: hasError,
     isLoading,
-  } = useSWR<{
-    hits: iImage[];
-    total: number;
-    totalHits: number;
-  }>(Api.createRequestUrl({ search, pagination: page ?? 1 }), fetcher);
+  } = useSWR<iImageApiResponse>(
+    Api.createRequestUrl({ search, page: page ?? 1 }),
+    fetcher
+  );
+
+  let data: iPopulatedImageResponse | undefined = undefined;
+
+  if (response) {
+    const pagesCount = getPagesCount({
+      total: response.totalHits,
+      resultsPerPage: Api.IMAGES_PER_PAGE,
+    });
+
+    data = { ...response, pagesCount };
+  }
 
   return { data, hasError, isLoading };
 };
