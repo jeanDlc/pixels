@@ -1,10 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
 
 import {
   Container,
@@ -23,6 +20,7 @@ import Title from "../components/Title";
 import ImageListSkeleton from "../components/ImageList/Skeleton";
 import ImageList from "../components/ImageList";
 import { useImages } from "../hooks/useImages";
+import GithubLink from "../components/GithubLink";
 
 const StyledHero = styled(Box)(() => ({
   backgroundImage: `url(${bgImage})`,
@@ -110,18 +108,13 @@ const Home = () => {
     <Box>
       <StyledHero component={"section"}>
         <Container>
-          <Stack direction="row">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
             <Title />
-            <Tooltip title="Visit Github page">
-              <IconButton
-                aria-label="Github"
-                href="https://github.com/jeanDlc/pixels"
-                target="_blank"
-                rel="noreferrer nofollow"
-              >
-                <GitHubIcon />
-              </IconButton>
-            </Tooltip>
+            <GithubLink />
           </Stack>
           <Container maxWidth="md">
             <Box mt={10}>

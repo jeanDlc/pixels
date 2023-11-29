@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 
 export const Logo = () => {
   return (
-    <Typography component="h1">
+    <Typography component="h1" sx={{ lineHeight: 0 }}>
       <Box
         component="span"
         sx={{
