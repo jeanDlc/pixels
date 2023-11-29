@@ -5,6 +5,11 @@ export interface iImage {
   likes: number;
   views: number;
   largeImageURL: string;
+  webformatURL: string;
+
+  imageHeight: number;
+  imageSize: number;
+  imageWidth: number;
 }
 
 export interface iImageApiResponse {

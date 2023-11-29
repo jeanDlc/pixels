@@ -1,4 +1,5 @@
 import { Box, Typography, Container } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 import MuiImageList from "@mui/material/ImageList";
 import MuiImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
@@ -23,8 +24,9 @@ const ImageList = ({ imageList }: { imageList?: iImage[] }) => {
           {imageList.map((image, i) => (
             <MuiImageListItem key={image.id}>
               <img
-                srcSet={`${image.largeImageURL}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                src={`${image.largeImageURL}?w=248&fit=crop&auto=format`}
+                width={image.imageWidth}
+                height={image.imageHeight}
+                src={`${image.largeImageURL}`}
                 alt={`Picture from ${image.user}`}
                 loading={i < 3 ? "eager" : "lazy"}
               />
@@ -37,19 +39,22 @@ const ImageList = ({ imageList }: { imageList?: iImage[] }) => {
                   </Box>
                 }
                 actionIcon={
-                  <IconButton
-                    href={image.pageURL}
-                    target="_blank"
-                    rel="noreferrer nofollow"
-                    title="Visit page to know more about it"
-                    sx={{
-                      color: "rgba(255, 255, 255, 0.54)",
-                      "&:hover": { color: "white" },
-                    }}
-                    aria-label={`info about ${image.user} picture`}
-                  >
-                    <RedirectIcon />
-                  </IconButton>
+                  <Tooltip title="Visit page to know more about it">
+                    <IconButton
+                      href={image.pageURL}
+                      target="_blank"
+                      rel="noreferrer nofollow"
+                      sx={{
+                        color: "rgba(255, 255, 255, 0.7)",
+                        transition: "all .2s ease-out",
+
+                        "&:hover": { color: "white", transform: "scale(1.1)" },
+                      }}
+                      aria-label={`info about ${image.user} picture`}
+                    >
+                      <RedirectIcon />
+                    </IconButton>
+                  </Tooltip>
                 }
               />
             </MuiImageListItem>
