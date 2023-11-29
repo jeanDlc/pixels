@@ -1,12 +1,10 @@
 import Box from "@mui/material/Box";
+import ButtonBase from "@mui/material/ButtonBase";
+import { Link } from "react-router-dom";
 
 import { Logo } from "./Logo";
-import { useNavigate } from "react-router-dom";
-import ButtonBase from "@mui/material/ButtonBase";
 
 const Title = () => {
-  const navigate = useNavigate();
-
   return (
     <Box
       sx={{
@@ -15,10 +13,7 @@ const Title = () => {
         pl: 0,
       }}
     >
-      <ButtonBase
-        onClick={() => navigate("/")}
-        sx={{ display: "flex", alignItems: "center", gap: 2, px: 1 }}
-      >
+      <ButtonBase component={Link} to="/" sx={{ px: 1 }}>
         <Logo />
       </ButtonBase>
     </Box>
