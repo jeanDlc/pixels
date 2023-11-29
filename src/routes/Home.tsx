@@ -1,6 +1,11 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+
 import {
   Container,
   Typography,
@@ -105,7 +110,19 @@ const Home = () => {
     <Box>
       <StyledHero component={"section"}>
         <Container>
-          <Title />
+          <Stack direction="row">
+            <Title />
+            <Tooltip title="Visit Github page">
+              <IconButton
+                aria-label="Github"
+                href="https://github.com/jeanDlc/pixels"
+                target="_blank"
+                rel="noreferrer nofollow"
+              >
+                <GitHubIcon />
+              </IconButton>
+            </Tooltip>
+          </Stack>
           <Container maxWidth="md">
             <Box mt={10}>
               <Typography variant="h4" component="h2" mb={2}>
