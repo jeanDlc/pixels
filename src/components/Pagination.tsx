@@ -1,16 +1,20 @@
 import MuiPagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useSearchParams } from "react-router-dom";
-import { useAppMediaQuery } from "../hooks/useAppMediaQuery";
+import { useAppMediaQuery } from "@/hooks/useAppMediaQuery";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const Pagination = ({ pagesCount }: { pagesCount: number }) => {
-  const [params, setParams] = useSearchParams();
+  const params = useSearchParams();
 
   const isMobile = useAppMediaQuery(({ breakpoints }) =>
-    breakpoints.down("md")
+    breakpoints.down("md"),
   );
 
-  const page = Number(params.get("page") ?? 1);
+  const pathname = usePathname();
+
+  const router = useRouter();
+
+  const page = parseInt(params.get("page") ?? "1");
 
   return (
     <Stack spacing={2}>
@@ -19,12 +23,12 @@ const Pagination = ({ pagesCount }: { pagesCount: number }) => {
         count={pagesCount}
         page={page}
         color="primary"
-        onChange={(_, value) =>
-          setParams((p) => {
-            p.set("page", value.toString());
-            return p;
-          })
-        }
+        onChange={(_, value) => {
+          const newParams = new URLSearchParams(params.toString());
+          newParams.set("page", value.toString());
+
+          router.push(`${pathname}?${newParams.toString()}`);
+        }}
         shape="rounded"
       />
     </Stack>

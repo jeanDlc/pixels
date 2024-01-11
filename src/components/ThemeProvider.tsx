@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { theme } from "../utils/theme";
+import { theme } from "./theme";
 
 import type { ReactNode } from "react";
 

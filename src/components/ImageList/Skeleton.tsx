@@ -8,12 +8,12 @@ const ImageListSkeleton = () => {
     <Container>
       <Grid container spacing={2}>
         {Array.from(new Array(6)).map((_, index) => (
-          <Grid item key={index} xs={12} md={6} lg={4}>
+          <Grid item key={index} xs={12} sm={6} md={4} lg={3}>
             <Skeleton
               sx={{ bgcolor: "grey.400" }}
               variant="rectangular"
               width={"100%"}
-              height={200}
+              height={350}
             />
             <Box sx={{ pt: 0.5 }}>
               <Skeleton sx={{ bgcolor: "grey.400" }} />

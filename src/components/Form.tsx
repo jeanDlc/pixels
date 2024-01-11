@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+
 import { Box } from "@mui/material";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
@@ -8,6 +8,7 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 
 import type { FormEvent } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -45,9 +46,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Form = () => {
-  const { search } = useParams();
-  const navigate = useNavigate();
-  const [searchInput, setSearchInput] = useState(search ?? "");
+  const { search } = useParams<{ search: string }>();
+  const router = useRouter();
+  const [searchInput, setSearchInput] = useState(
+    decodeURIComponent(search) ?? "",
+  );
   const [hasError, setHasError] = useState(false);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -59,7 +62,7 @@ const Form = () => {
 
     setHasError(false);
 
-    navigate(`/search/${searchInput.trim()}?page=1`);
+    router.push(`/search/${searchInput.trim()}?page=1`);
   };
 
   return (
