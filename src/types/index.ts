@@ -1,5 +1,5 @@
+import { theme } from "@/components/theme";
 import type { SxProps } from "@mui/material";
-import { theme } from "@/utils/theme";
 
 export interface iImage {
   id: string;
