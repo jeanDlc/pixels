@@ -1,3 +1,4 @@
+"use client";
 import { Alert, Container, Typography, Box, Stack } from "@mui/material";
 
 import ImageList from "@/components/ImageList";
@@ -5,20 +6,17 @@ import ImageListSkeleton from "@/components/ImageList/Skeleton";
 import Header from "@/components/Header";
 import { useImages } from "@/hooks/useImages";
 import Pagination from "@/components/Pagination";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
-function Search() {
+function Search({ params }: { params: { search: string; page: string } }) {
+  const search = decodeURIComponent(params.search);
   const searchParams = useSearchParams();
+  const page = searchParams.get("page");
 
-  const { search } = useParams<{ search: string }>();
-
-  if (!search) {
-    throw new Error("Invalid request, you must provide a correct search");
-  }
-
-  const page = Number(searchParams.get("page") ?? 1);
-
-  const { data, hasError, isLoading } = useImages({ search, page });
+  const { data, hasError, isLoading } = useImages({
+    search,
+    page: parseInt(page ?? "1"),
+  });
 
   return (
     <>
@@ -45,7 +43,7 @@ function Search() {
                 <Typography variant="h4" component="h2">
                   Free images of{" "}
                   <Box component="span" sx={{ textTransform: "capitalize" }}>
-                    {decodeURIComponent(search)}
+                    {search}
                   </Box>
                 </Typography>
                 <Pagination pagesCount={data?.pagesCount ?? 0} />

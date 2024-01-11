@@ -1,23 +1,5 @@
-import useSWR from "swr";
-
-import { Api } from "../services";
-import { fetcher } from "../utils/fetcher";
-
-import type { iImageApiResponse } from "../types";
-
-const getPagesCount = ({
-  total,
-  resultsPerPage,
-}: {
-  total: number;
-  resultsPerPage: number;
-}) => {
-  return Math.ceil(total / resultsPerPage);
-};
-
-interface iPopulatedImageResponse extends iImageApiResponse {
-  pagesCount: number;
-}
+import type { iPopulatedImageResponse } from "@/types";
+import { useEffect, useState } from "react";
 
 export const useImages = ({
   search,
@@ -26,25 +8,38 @@ export const useImages = ({
   search: string;
   page?: number;
 }) => {
-  const {
-    data: response,
-    error: hasError,
-    isLoading,
-  } = useSWR<iImageApiResponse>(
-    Api.createRequestUrl({ search, page: page ?? 1 }),
-    fetcher
-  );
+  const [data, setData] = useState<iPopulatedImageResponse | null>(null);
 
-  let data: iPopulatedImageResponse | undefined = undefined;
+  const [hasError, setHasError] = useState(false);
 
-  if (response) {
-    const pagesCount = getPagesCount({
-      total: response.totalHits,
-      resultsPerPage: Api.IMAGES_PER_PAGE,
-    });
+  const [isLoading, setIsLoading] = useState(true);
 
-    data = { ...response, pagesCount };
-  }
+  useEffect(() => {
+    if (search && page) {
+      (async () => {
+        if (!isLoading) setIsLoading(true);
+
+        const params = new URLSearchParams();
+        params.append("search", search);
+        params.append("page", (page ?? 1).toString());
+
+        const path = `/api/images?${params.toString()}`;
+        try {
+          const res = await fetch(path);
+
+          if (!res.ok) {
+            throw new Error("Unable to perform request");
+          } else {
+            setData(await res.json());
+          }
+        } catch (error) {
+          setHasError(true);
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
+  }, [search, page]);
 
   return { data, hasError, isLoading };
 };

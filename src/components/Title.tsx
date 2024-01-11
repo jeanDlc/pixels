@@ -1,11 +1,11 @@
 import ButtonBase from "@mui/material/ButtonBase";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 import { Logo } from "./Logo";
 
 const Title = () => {
   return (
-    <ButtonBase component={Link} to="/" sx={{ px: 1 }}>
+    <ButtonBase component={Link} href="/" sx={{ px: 1 }}>
       <Logo />
     </ButtonBase>
   );

@@ -1,5 +1,5 @@
-export class Api {
-  private static BASE_URL = import.meta.env.VITE_PIXABAY_BASE_URL;
+export class PixabayApi {
+  private static BASE_URL = process.env.PIXABAY_BASE_URL ?? "";
   static IMAGES_PER_PAGE = 20;
 
   static createRequestUrl({ search, page }: { search: string; page: number }) {
@@ -7,7 +7,7 @@ export class Api {
 
     const params = new URLSearchParams({
       q: search,
-      key: import.meta.env.VITE_PIXABAY_KEY,
+      key: process.env.PIXABAY_KEY ?? "",
       page: page.toString(),
       per_page: this.IMAGES_PER_PAGE.toString(),
     });

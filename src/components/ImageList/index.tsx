@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Box, Typography, Container } from "@mui/material";
 import Tooltip from "@mui/material/Tooltip";
 import MuiImageList from "@mui/material/ImageList";
@@ -7,29 +8,39 @@ import IconButton from "@mui/material/IconButton";
 import RedirectIcon from "@mui/icons-material/OpenInNew";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
-import { useAppMediaQuery } from "../../hooks/useAppMediaQuery";
+import { useAppMediaQuery } from "@/hooks/useAppMediaQuery";
 
-import type { iImage } from "../../types";
+import type { iImage } from "@/types";
 
 const ImageList = ({ imageList }: { imageList?: iImage[] }) => {
   const isMobile = useAppMediaQuery((theme) => theme.breakpoints.down("sm"));
   const isMedium = useAppMediaQuery((theme) => theme.breakpoints.down("md"));
+  const isLarge = useAppMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   if (!imageList?.length) return null;
 
   return (
     <>
       <Container maxWidth="xl">
-        <MuiImageList cols={isMobile ? 1 : isMedium ? 2 : 3}>
+        <MuiImageList cols={isMobile ? 1 : isMedium ? 2 : isLarge ? 3 : 4}>
           {imageList.map((image, i) => (
             <MuiImageListItem key={image.id}>
-              <img
-                width={image.imageWidth}
-                height={image.imageHeight}
-                src={`${image.largeImageURL}`}
-                alt={`Picture from ${image.user}`}
-                loading={i < 3 ? "eager" : "lazy"}
-              />
+              <Box
+                sx={{
+                  height: 400,
+                  position: "relative",
+                }}
+              >
+                <Image
+                  layout="fill"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{ objectFit: "cover" }}
+                  src={`${image.webformatURL}`}
+                  alt={`Picture from ${image.user}`}
+                  loading={i < 3 ? "eager" : "lazy"}
+                />
+              </Box>
+
               <ImageListItemBar
                 title={`@${image.user}`}
                 subtitle={

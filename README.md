@@ -1,4 +1,5 @@
 # Pixels
+
 App where you will able to search a variety of images (...videos coming soon). Visit [pixels.com](https://pixels-app.netlify.app/)
 
 ## Programming languages and technologies
@@ -8,8 +9,7 @@ Recently rewritten with these technologies:
 - TypeScript
 - React ⚛️
 - Material UI
-- Vite ⚡
-- SWR (for caching requests)
+- Next.js ⚡
 
 ## To run the app
 
@@ -24,8 +24,8 @@ Please read the [Pixabay's api documentation](https://pixabay.com/api/docs) to g
 Follow the steps
 
 - Create a `env.local` file ar the root of the project
-- Set your pixabay api key `VITE_PIXABAY_KEY = __your_pixabay_api_key__`
-- Set the base api url `VITE_PIXABAY_BASE_URL = __base_pixabay_api_url__`. You will see in the [api docs](https://pixabay.com/api/docs)
+- Set your pixabay api key `PIXABAY_KEY = __your_pixabay_api_key__`
+- Set the base api url `PIXABAY_BASE_URL = __base_pixabay_api_url__`. You will see in the [api docs](https://pixabay.com/api/docs)
 
 ### Final steps
 

@@ -1,3 +1,6 @@
+import type { SxProps } from "@mui/material";
+import { theme } from "@/utils/theme";
+
 export interface iImage {
   id: string;
   pageURL: string;
@@ -6,6 +9,8 @@ export interface iImage {
   views: number;
   largeImageURL: string;
   webformatURL: string;
+  webformatHeight: number;
+  webformatWidth: number;
 
   imageHeight: number;
   imageSize: number;
@@ -17,3 +22,11 @@ export interface iImageApiResponse {
   total: number;
   totalHits: number;
 }
+
+export interface iPopulatedImageResponse extends iImageApiResponse {
+  pagesCount: number;
+}
+
+export type AppTheme = typeof theme;
+
+export type AppSx = SxProps<AppTheme>;
