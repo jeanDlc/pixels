@@ -34,4 +34,4 @@ Follow the steps
 
 ## It's time to play 🎮
 
-Visit [pixels.com](https://pixels-app.netlify.app/) to see the app in action
+Visit [pixels-jeandlc.com](https://pixels-jeandlc.vercel.app/) to see the app in action
